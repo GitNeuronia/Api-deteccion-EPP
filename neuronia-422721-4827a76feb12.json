@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "neuronia-422721",
+  "private_key_id": "4827a76feb12322fa2e39e6aae895dec04529031",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCLg+s34TuH1/CC\nWStB2hrz4C61KKyGnp1vwvlqPznSdI/xp7T6bDYaxaeMQmtmIyYH5jYK0Cw31RX6\nq9TUfL79kmoa2w9XFM08JjQ1P2EJwQfjvTlavcrUMqEKRDvA+pJ4hSe25dFPcVF8\nrd0cC8dnuyDoAbFupMDzOIv1/Oq6IvmhZ2wm85URzrF1grsBXRqn5uR4XYTXyJji\n/jVFKwJiK1IEoKvLq/kQrwjWl+zLyCLqPeAX/hWFnuYhv+vfBoGQ1T20lCRkQJDu\n5AOd40yuJHhi74Ir4655a03fAMp5icDue+SB6anc2RoVNw4nodgD5sLrtn8rDXIf\nGZJ9tEIfAgMBAAECggEAAnJyZj0Dm8rcU5T3zsRiE6P7fb70Y7oVfdfYIxZvz7Ku\nsajk4j2Sp16PJUUm+Bgmux29Fex30hThOU/ZQE7d1LnENatg9gCN5v+ui76MV6z0\nk/iGMILCs30d2P3AZI6gkg+X1jvqs2+D4+FyzuKgAUBFf/xDnfKy1bFItyxT+6bJ\nw31b2TGINtAfElNq4FUzvAJ2Esq5TxOHG3mEHepzirZ4F5fHrZtTcmLVXd92bp41\naJNy0ZTjzbCFIznIlmmh1cLoxi8aJtL8cE5f1STmQbs2rykzWFcaJwyLyU0ic9BL\n3gfiylVuIqPkzVShMa+QyNhOR7TkRxhoSrTq9fhEAQKBgQDBTrh5jPZ0tAOkBTAD\nR5D/R7zRJSm0QUIyvYpG3zjCzH7fJ+1r/CJXUD3eiWHGSCW64VcZZ4eX+v1+ZWXL\nhWuA1vVNX5oM8CM077zUhX1Hf4n9tqSaZUC0SSRgWBiegHl4u4hze6lpzByvhFMD\n7ZRYAdQCdbYG9751yKDHDJx2HwKBgQC4wx9Wsi3O5AKIKUhRHTfFJDaHTFf7ZFde\nBFqFveZX0rFHwTl69tgfpPyiSz7Enf5gu8QOulOpnpoYLNX+AnqLRcpwluzgkrS9\nloXqDW8sWV6XGI2atfIKFA+Cxg/BwP9tbelZJWFwtfoeWclPTnvbctp9pYLd+s+8\nD9PYDLa0AQKBgAwxkQVp1OoLqOchxKOQUh8oQUrYE0dhjnFw71YFIql3CNG+zQUw\nxGHJl/1/oQFG78pYCIx7sVvu4yqj7sXlxqA77wFQdIE4bKAcN0cYnIx0CRpN+Rgc\nJva4XmkNZZAp/n+VJMhUFp2r2Gth53Kp+9+JTfxRvIe3/PWlEC8+Jmh1AoGASssi\nSpRCmvgOVlRv4/Yx92pbcJXlH+1UuMiGZJGlR3QRM/zyaea3QsglRQW02R8kNMCN\n83BWIdoEgzjTP8p9FRghhUZzic2ZwQ3IFCFwGcHr2rqjyDdTTeUlCklnY4XfYMsX\npXDOazQfll2+co5Q8VsjO63etkGsCnNVzKYI6AECgYEAoAc9QuBOYGvZW5wSU6f8\ntxQp/rAUUNjF/9TW8nTYjEwhjpZp95Mr2QWOuXEsaSwg2ycjYHf5s3H6YJqUPVEI\ntnw6nmebkBZP/tEwHWefjJ83U/EEa42vuF+K70yWXDebRU/8RAdMY6hXL0YqgWYt\n0t3uI3EOWM5/jVM8IzkIRcs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "neuronia@neuronia-422721.iam.gserviceaccount.com",
+  "client_id": "110689043270696651390",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/neuronia%40neuronia-422721.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
