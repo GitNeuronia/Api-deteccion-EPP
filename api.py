@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+import io
 from urllib.parse import unquote
 from flask import Blueprint, Flask, config, jsonify, request, abort
 import psycopg2
@@ -313,7 +314,7 @@ def guardar_archivo(file, filename, folder_id):
         file_extension = file.filename.rsplit('.', 1)[1].lower()
 
         # Validar la extensión del archivo
-        allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'avi', 'mov']
+        allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'avi', 'mov','json']
         if file_extension not in allowed_extensions:
             print(f"Extensión '{file_extension}' no permitida.")
             return None
@@ -432,6 +433,122 @@ def sensor_epp(filename):
     except Exception as e:
         print("ERROR", str(e))
         return jsonify({"ERROR": str(e)}), 400
+
+@ruta_base.route('/sensor_json_epp', methods=["POST"])
+def sensor_json_epp():
+    try:
+        conn = psycopg2.connect(configdb)
+        cur = conn.cursor()
+        # Recibe el archivo JSON
+        data = request.form["data"]
+        print(request.files)
+        
+        # Verifica que el archivo no esté vacío
+        if not data:
+            return jsonify({'error': 'El archivo JSON está vacío'}), 400
+        else:
+            try:
+                data = json.loads(data)
+            except json.JSONDecodeError:
+                return jsonify({"Message": "El campo 'data' debe ser una cadena JSON válida"}), 400
+        
+        # Obtenemos la imagen (opcional)
+        try:
+            file = request.files.get("evidence")
+        except Exception as e:
+            file = ''
+
+        # Convierte el JSON a un archivo en memoria
+        # json_file = io.BytesIO(json.dumps(data).encode('utf-8'))
+        
+        # Obtiene la longitud del archivo JSON
+        # length = len(data)
+        # if length > 40:
+        #     estado = 1
+        # else:
+        #     estado = 0
+        estado = 1
+
+        prediction = '' # en caso de que sea un solo elemento
+        predictions = [] # en caso de que sean 2 elementos
+
+        filename = data['image_name']
+        zona = data['zone']
+        if data['prediction'].__contains__(' Y '):
+            predictions = data['prediction'].split(' Y ')
+        else:
+            prediction = data['prediction']
+            
+
+
+        if len(predictions) > 1:
+            # Transforma la lista
+            transformed = ', '.join([f"upper('{item}')" for item in predictions])
+            cur.execute(f'''SELECT "ELE_NID" FROM "ELEMENT" WHERE upper("ELE_CDESCRIPTION") in ({transformed}) ''')
+            response = cur.fetchall()
+            dato = [z[0] for z in response]
+        else:
+            cur.execute(f'''SELECT "ELE_NID" FROM "ELEMENT" WHERE upper("ELE_CDESCRIPTION") = '(upper({prediction}))' ''')
+            response = cur.fetchone()
+            dato = [response]
+
+        var1, var2, var3, var4 = assign_values(dato)
+        
+        folder_id = '1W1C-8LHz8FI1KkbACicfXVZzKLKsRHBR' # Carpeta Json
+        if file:
+            evidence_path, id_file = guardar_archivo(file, filename, folder_id)
+            if evidence_path is None:
+                return jsonify({"Message": "Archivo no válido"}), 400
+        else:
+            print("No se proporcionó un archivo 'evidence'")
+
+
+        # evidence_path, id_file = guardar_archivo(json_file, filename, folder_id)
+        # Asignar la fecha y hora actual si se recibió información
+        detection_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Extrae las predicciones
+        # predictions = [item['prediction'] for item in data]
+        
+        if evidence_path and id_file:
+            
+            cur.execute(
+                '''INSERT INTO "SENSOR_EPP"("DEV_NID_id", "SEN_FDETECTION_DATE", "SEN_NSTATUS", "SEN_NELEMENT_CODE_1_id", "SEN_NELEMENT_CODE_2_id", "SEN_NELEMENT_CODE_3_id", "SEN_NELEMENT_CODE_4_id", "SEN_CEVIDENCE", "SEN_CEVIDENCE_DRIVE_ID") VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)''',
+                (1, detection_date, True, var1, var2, var3, var4, evidence_path, id_file)
+            )
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        # Agregar las variables status y detection_date a la respuesta
+        response_data = {
+            "Message": "OK recibido",
+            "info": 'Json subido correctamente',
+            "status": 'OK',
+            "detection_date": detection_date,
+            "evidence_path": evidence_path
+        }
+        return jsonify(response_data), 201
+
+    except Exception as e:
+        print(e)
+        # Agregar las variables status y detection_date a la respuesta
+        response_data = {
+            "Message": "Error al subir archivo",
+            "info": str(e),
+            "status": 'ERROR'
+        }
+        return jsonify(response_data), 400
+
+def assign_values(lst):
+    # Extiende la lista con ceros hasta que tenga una longitud de 4
+    while len(lst) < 4:
+        lst.append(None)
+    
+    # Asigna los valores a las variables
+    var1, var2, var3, var4 = lst[:4]
+    
+    return var1, var2, var3, var4
 
 ############### FIN ##############
 ### GUARDAR REGISTROS EN DRIVE ###
