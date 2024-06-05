@@ -488,7 +488,7 @@ def sensor_json_epp():
             response = cur.fetchall()
             dato = [z[0] for z in response]
         else:
-            cur.execute(f'''SELECT "ELE_NID" FROM "ELEMENT" WHERE upper("ELE_CDESCRIPTION") = '(upper({prediction}))' ''')
+            cur.execute(f'''SELECT "ELE_NID" FROM "ELEMENT" WHERE upper("ELE_CDESCRIPTION") = upper('{prediction}') ''')
             response = cur.fetchone()
             dato = [response]
 
