@@ -540,6 +540,62 @@ def sensor_json_epp():
         }
         return jsonify(response_data), 400
 
+
+@ruta_base.route('/log', methods=["POST"])
+def log_api():
+    try:
+        conn = psycopg2.connect(configdb)
+        cur = conn.cursor()
+        # Recibe el archivo JSON
+        data = request.form["data"]
+        # Verifica que el archivo no esté vacío
+        if not data:
+            return jsonify({'error': 'El archivo JSON está vacío'}), 400
+        else:
+            try:
+                data = json.loads(data)
+            except json.JSONDecodeError:
+                return jsonify({"Message": "El campo 'data' debe ser una cadena JSON válida"}), 400
+        
+        fecha = data['detection_date']
+        respuesta = data['message']
+
+        try:
+            cur.execute(
+                '''INSERT INTO "LOG_API"("LOG_RESPUESTA", "LOG_FDETECTION_DATE", ) VALUES (%s, %s)''',
+                (respuesta, fecha)
+            )
+            conn.commit()
+            cur.close()
+            conn.close()
+            # Agregar las variables status y detection_date a la respuesta
+            response_data = {
+                "Message": "Recibido",
+                "info": 'Hertbeat recibido por API',
+                "status": 'OK'
+            }
+            return jsonify(response_data), 201
+        except Exception as e:
+            print(e)
+            # Agregar las variables status y detection_date a la respuesta
+            response_data = {
+                "Message": "Error",
+                "info": 'Error al guardar Hertbeat',
+                "status": 'error',
+                "exception":str(e)
+            }
+
+
+    except Exception as e:
+        print(e)
+        # Agregar las variables status y detection_date a la respuesta
+        response_data = {
+            "Message": "Error 1",
+            "info": 'Error al guardar Hertbeat',
+            "status": 'error',
+            "exception":str(e)
+        }
+
 def assign_values(lst):
     # Extiende la lista con ceros hasta que tenga una longitud de 4
     while len(lst) < 4:
