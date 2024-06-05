@@ -547,7 +547,7 @@ def log_api():
         conn = psycopg2.connect(configdb)
         cur = conn.cursor()
         # Recibe el archivo JSON
-        data = request.form["data"]
+        data = request.form['data']
         # Verifica que el archivo no esté vacío
         if not data:
             return jsonify({'error': 'El archivo JSON está vacío'}), 400
@@ -562,7 +562,7 @@ def log_api():
 
         try:
             cur.execute(
-                '''INSERT INTO "LOG_API"("LOG_RESPUESTA", "LOG_FDETECTION_DATE", ) VALUES (%s, %s)''',
+                '''INSERT INTO "LOG_API"("LOG_RESPUESTA", "LOG_FDETECTION_DATE" ) VALUES (%s, %s)''',
                 (respuesta, fecha)
             )
             conn.commit()
@@ -584,7 +584,7 @@ def log_api():
                 "status": 'error',
                 "exception":str(e)
             }
-
+            return jsonify(response_data), 400
 
     except Exception as e:
         print(e)
@@ -595,6 +595,7 @@ def log_api():
             "status": 'error',
             "exception":str(e)
         }
+        return jsonify(response_data), 400
 
 def assign_values(lst):
     # Extiende la lista con ceros hasta que tenga una longitud de 4
