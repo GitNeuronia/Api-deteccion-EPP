@@ -15,20 +15,20 @@
 -- ), random_zones AS (
 --     SELECT "Z_NID" FROM "ZONE" ORDER BY RANDOM() LIMIT 10
 -- )
--- INSERT INTO "DEVICE" ("DEV_CBRAND", "DEV_CMODEL", "DEV_NLOCATION_id", "DEV_NZONE_id", "DEV_CDEVICE_CODE", "DEV_NDEVICE_TYPE_id")
+-- INSERT INTO "DEVICE" ("DEV_CBRAND", "DEV_CMODEL", "LOC_NID_id", "Z_NID_id", "DEV_CDEVICE_CODE", "DT_NID_id")
 -- SELECT 
 --     'Marca ' || gs.i,
---     'Modelo ' || gs.i,
+--    'Modelo ' || gs.i,
 --     rl."LOC_NID",
 --     rz."Z_NID",
 --     'DEV_' || gs.i || '_' || NEXTVAL('device_sequence'), -- Aquí se agrega un sufijo incremental único
 --     (SELECT "DT_NID" FROM "DEVICE_TYPE" WHERE "DT_CNAME" = 'Cámara')
--- FROM 
---     generate_series(1, 10) AS gs(i)
--- JOIN 
---     random_locations rl ON true
--- JOIN 
---     random_zones rz ON true;
+--FROM 
+--    generate_series(1, 10) AS gs(i)
+--JOIN 
+--    random_locations rl ON true
+--JOIN 
+--    random_zones rz ON true;
 
 -- SELECT * FROM "DEVICE"
 
@@ -36,7 +36,7 @@
 -- WITH random_devices AS (
 --     SELECT "DEV_NID" FROM "DEVICE" ORDER BY RANDOM() LIMIT 20
 -- )
--- INSERT INTO "SENSOR_EPP" ("SEN_DETECTION_DATE", "SEN_NSTATUS", "SEN_NDEVICE_id", "SEN_CELEMENT_CODE_1", "SEN_CELEMENT_CODE_2", "SEN_CELEMENT_CODE_3", "SEN_CELEMENT_CODE_4", "SEN_CEVIDENCE")
+-- INSERT INTO "SENSOR_EPP" ("SEN_FDETECTION_DATE", "SEN_NSTATUS", "DEV_NID_id", "SEN_NELEMENT_CODE_1", "SEN_NELEMENT_CODE_2", "SEN_NELEMENT_CODE_3", "SEN_NELEMENT_CODE_4", "SEN_CEVIDENCE", "SEN_CEVIDENCE_DRIVE_ID")
 -- SELECT 
 --     NOW() - (random() * interval '30 days'),  -- Se resta un intervalo aleatorio para obtener fechas distintas
 --     i % 2 = 0,
@@ -45,7 +45,8 @@
 --     (SELECT "ELE_CDESCRIPTION" FROM "ELEMENT" ORDER BY RANDOM() LIMIT 1),
 --     (SELECT "ELE_CDESCRIPTION" FROM "ELEMENT" ORDER BY RANDOM() LIMIT 1),
 --     (SELECT "ELE_CDESCRIPTION" FROM "ELEMENT" ORDER BY RANDOM() LIMIT 1),
---     'http://example.com/evidence_' || i || '.jpg'
+--     'http://example.com/evidence_' || i || '.jpg',
+--     'a'
 -- FROM 
 --     generate_series(1, 20) AS gs(i)
 -- JOIN 

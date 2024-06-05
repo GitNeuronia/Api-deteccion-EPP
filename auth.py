@@ -4,7 +4,8 @@ from function_jwt import escribir_token, validar_token
 import requests
 import re
 routes_auth = Blueprint("routes_auth",__name__)
-URL_AUTH = 'http://127.0.0.1:8000/login/'
+URL_AUTH = 'http://34.225.254.125/login'
+# URL_AUTH = 'http://localhost:9000/login'
 @routes_auth.route("/login",methods = ["POST"])
 # Este bloque de código maneja la autenticación y generación de tokens JWT para usuarios
 # Verifica si el usuario es CIROS con contraseña específica para autenticación directa

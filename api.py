@@ -61,7 +61,7 @@ def get_all_locations():
     try:
         conn = psycopg2.connect(configdb)
         cursor = conn.cursor()
-        cursor.execute('SELECT "loc_nid", "loc_cdescription" FROM location')
+        cursor.execute('SELECT "LOC_NID", "LOC_CDESCRIPTION" FROM "LOCATION"')
         locations = cursor.fetchall()
         data = [{'id': l[0], 'description': l[1]} for l in locations]
         cursor.close()
@@ -273,7 +273,7 @@ def get_alert_x_zone(fecha_1, fecha_2, zona):
 
 def upload_to_drive(file, folder_id, filename):
     try:
-        credentials_path = r'C:/EPP Luciano/Api Detección EPP/neuronia-422721-4827a76feb12.json'
+        credentials_path = r'C:\inetpub\wwwroot\Api-deteccion-EPP\neuronia-422721-4827a76feb12.json'
         creds = service_account.Credentials.from_service_account_file(
             credentials_path, scopes=['https://www.googleapis.com/auth/drive']
         )
@@ -445,4 +445,4 @@ app.register_blueprint(ruta_base)
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=9000)
