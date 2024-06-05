@@ -19,7 +19,7 @@ import time
 url = "http://localhost:5000/sensor_json_epp"
 
 payload = {
-    'data': '{"image_name": "frame_28800.jpg", "prediction": "CASCO Y CHALECO", "confidence": 0.9252026081085205, "zone": 1}'
+    'data': '{"image_name": "frame_28800.jpg", "prediction": "CASCO", "confidence": 0.9252026081085205, "zone": 1}'
 }
 file_path = r"C:\EPP Luciano\Api Deteccion EPP\imagenesrandom300\img_prueba.jpg"
 files = [('evidence', ('img_prueba.jpg', open(file_path, 'rb'), 'application/octet-stream'))]
