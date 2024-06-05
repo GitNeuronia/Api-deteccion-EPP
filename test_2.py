@@ -16,13 +16,13 @@
 import requests
 import time
 
-url = "http://localhost:5000/sensor_epp/video_1.mp4"
+url = "http://localhost:5000/sensor_json_epp"
 
 payload = {
-    'data': '{"device_id": 1,"element_code_1": "2","element_code_2": "1","element_code_3": "","element_code_4": ""}'
+    'data': '{"image_name": "frame_28800.jpg", "prediction": "CASCO Y CHALECO", "confidence": 0.9252026081085205, "zone": 1}'
 }
-file_path = r"C:\\EPP Luciano\\Api Deteccion EPP - copia\\videorandom5\\video_1.mp4"
-files = [('evidence', ('video_1.mp4', open(file_path, 'rb'), 'application/octet-stream'))]
+file_path = r"C:\EPP Luciano\Api Deteccion EPP\imagenesrandom300\img_prueba.jpg"
+files = [('evidence', ('img_prueba.jpg', open(file_path, 'rb'), 'application/octet-stream'))]
 headers = {
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbiIsImV4cCI6MTczMjAxMTUzOX0.Q_agNZdGDXkWVpCw7V8fHh6VCNsNILmpTZVsBn9u098',
 }
