@@ -3,9 +3,9 @@ import psycopg2
 
 class ConnData:
     ENGINE= 'django.db.backends.postgresql_psycopg2'
-    NAME= 'EPP'
-    USER= 'neuronia'
-    PASSWORD= 'neuronia2024.'
+    NAME= 'EPP_PRODUCCION'
+    USER= 'admin'
+    PASSWORD= 'admin'
     HOST= 'localhost'
     PORT= '5432'
 
